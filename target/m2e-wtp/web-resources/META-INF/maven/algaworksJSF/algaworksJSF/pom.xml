@@ -1,0 +1,93 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>algaworksJSF</groupId>
+	<artifactId>algaworksJSF</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+	<name>Algaworks-JSF</name>
+	<description>Curso de JSF da Algaworks</description>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+
+	<dependencies>
+		<!-- Dependência do CDI (especificação) e o framework WELD do JBoss é a implementação-->
+		<dependency>
+			<groupId>org.jboss.weld.servlet</groupId>
+			<artifactId>weld-servlet</artifactId>
+			<version>2.4.8.Final</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Dependência do JavaServer Faces (JSF) versão 2.2.14 (ano: 2014) já possui a implementação do Mojorra -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.faces</artifactId>
+			<version>2.2.14</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Dependência do PrimeFaces versão 7.0 (ano: 2019) -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>7.0</version>
+		</dependency>
+
+		<!-- Dependência do Servlet API para desenvolvimento web. Escopo
+			'provided' porque é fornecido pelo contêiner Servlet. -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>3.1.0</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Hibernate Validator, uma biblioteca de validação usada para
+			validar objetos em aplicações Java EE. -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>5.3.2.Final</version>
+			<scope>compile</scope>
+		</dependency>
+		
+		<!-- Framework Hibernate arquivo Core -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>6.2.7.Final</version>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Banco de dados MySQL. Permite que você use o driver JDBC do MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.33</version> <!-- Use a versão mais recente disponível -->
+			<scope>compile</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- Plugin do Maven para Compilação -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.5.1</version>
+				<configuration>
+					<source>1.7</source>   <!-- Versão do Java a ser usada para
+					compilação (ano: 2011) -->
+					<target>1.7</target>   <!-- Versão do Java para a qual o código
+					será compilado (ano: 2011) -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,52 @@
+body {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 10px;
+    font-weight: normal;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Estilos para o corpo da página */
+/* Define o tamanho da fonte, a fonte a ser usada, a margem ao redor do corpo e a espessura da fonte */
+
+header {
+    padding: 5px;
+    margin-bottom: 20px;
+    height: 30px;
+    background-color: #545454;
+    color: #fff;
+    box-shadow: 0px 2px 2px #ccc;
+}
+
+/* Estilos para o cabeçalho */
+/* Define o preenchimento interno, a margem inferior, a altura, a cor de fundo, a cor do texto e uma sombra no cabeçalho */
+
+#conteudo {
+    padding: 0px 8px;
+}
+
+/* Estilos para o conteúdo */
+/* Define o preenchimento interno para o conteúdo */
+
+footer {
+    border-top: 1px solid #ccc;
+    padding: 5px 8px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para o rodapé */
+/* Define uma borda superior, preenchimento interno, margem superior e margem inferior para o rodapé */
+
+h1 {
+    font-size: 24px;
+    font-weight: 500;
+    padding: 0px;
+    margin: 0px;
+    margin-bottom: 10px;
+}
+
+/* Estilos para cabeçalhos de nível 1 (h1) */
+/* Define o tamanho da fonte, a espessura da fonte, o preenchimento interno e as margens para cabeçalhos de nível 1 */
