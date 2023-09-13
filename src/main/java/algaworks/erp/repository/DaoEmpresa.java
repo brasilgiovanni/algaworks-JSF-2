@@ -30,6 +30,12 @@ public class DaoEmpresa implements Serializable{
 		return manager.find(Empresa.class, id);
 	}
 	
+	public List<Empresa> todas() {
+		String jpql = "from Empresa";
+		List<Empresa> query = manager.createQuery(jpql, Empresa.class).getResultList();
+		return query; 
+	}
+	
 	public List<Empresa> pesquisar(String nome) {
 		String jpql = "from Empresa where nomeFantasia like :nomeFantasia";
 		

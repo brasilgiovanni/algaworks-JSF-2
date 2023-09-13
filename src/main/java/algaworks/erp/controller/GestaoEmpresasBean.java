@@ -1,38 +1,31 @@
 package algaworks.erp.controller;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 
 import algaworks.erp.model.Empresa;
-import algaworks.erp.model.TipoEmpresa;
+import algaworks.erp.repository.DaoEmpresa;
 
 @Named
 @ViewScoped
 public class GestaoEmpresasBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
-	private Empresa empresa = new Empresa();
+	@Inject
+	private DaoEmpresa daoEmpresa;
 	
-	public void salvar() {
-		System.out.println(">>>> EMPRESA SALVA <<<<");
-		System.out.println("Razão Social: " + empresa.getRazaoSocial()
-		+ " - Nome Fantasia: " + empresa.getNomeFantasia()
-		+ " - Tipo Empresa: " + empresa.getTipo());
+	private List<Empresa> listaEmpresas;
+	
+	public void todasEmpresas() {
+		listaEmpresas = daoEmpresa.todas();
 	}
 	
-	public Empresa getEmpresa() {
-		return empresa;
+	public List<Empresa> getListaEmpresas() {
+		return listaEmpresas;
 	}
-	
-	public TipoEmpresa[] getTiposEmpresa() { // o compilador já reconhece que vai buscar todos os tipos de empresa do ENUM
-		return TipoEmpresa.values();
-	}
-	
-	public String ajuda() {
-		return "AjudaGestaoEmpresas?faces-redirect=true";
-	}
-	
 
 }
