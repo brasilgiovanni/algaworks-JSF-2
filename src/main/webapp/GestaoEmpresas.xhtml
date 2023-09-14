@@ -16,6 +16,10 @@
 		</f:metadata>
 
 		<h:form>
+			<p:messages id="messages" closable="true">
+				<p:autoUpdate />
+			</p:messages>
+
 			<p:toolbar>
 				<f:facet name="left">
 					<!-- Usado para posicionar corretamente na esquerda os botoes do toolbar -->
@@ -23,7 +27,8 @@
 						value="#{gestaoEmpresasBean.termoPesquisa}" />
 					<!-- O size define o tamanho da caixinha do inputText e o placeholder apresenta uma mensagem padrao-->
 					<p:commandButton value="Pesquisar" icon="fa fa-search"
-						actionListener="#{gestaoEmpresasBean.pesquisar}" update="empresasDataTable" />
+						actionListener="#{gestaoEmpresasBean.pesquisar}"
+						update="empresasDataTable" />
 					<!-- Comando update="empresasDataTable" para atualizar a dataTable depois de usar o commandButton -->
 
 					<span class="ui-separator"> <span
@@ -54,7 +59,7 @@
 			<!-- emptyMessage é para quando não existir empresas cadastradas ou encontradas -->
 			<p:dataTable id="empresasDataTable"
 				value="#{gestaoEmpresasBean.listaEmpresas}" var="empresa"
-				emptyMessage="Nenhuma informação a seri exibida." paginator="true"
+				emptyMessage="Nenhuma informação a ser exibida." paginator="true"
 				eows="10" paginatorPosition="bottom">
 				<p:column headerText="Razão Social" sortBy="#{empresa.razaoSocial}">
 					<h:outputText value="#{empresa.razaoSocial}" />
