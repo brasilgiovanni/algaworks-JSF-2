@@ -20,6 +20,12 @@ public class GestaoEmpresasBean implements Serializable {
 	
 	private List<Empresa> listaEmpresas;
 	
+	private String termoPesquisa;
+	
+	public void pesquisar() {
+		listaEmpresas = daoEmpresa.pesquisar(termoPesquisa);
+	}
+	
 	public void todasEmpresas() {
 		listaEmpresas = daoEmpresa.todas();
 	}
@@ -28,4 +34,13 @@ public class GestaoEmpresasBean implements Serializable {
 		return listaEmpresas;
 	}
 
+	public String getTermoPesquisa() {
+		return termoPesquisa;
+	}
+
+	public void setTermoPesquisa(String termoPesquisa) {
+		this.termoPesquisa = termoPesquisa;
+	}
+	
+	
 }
