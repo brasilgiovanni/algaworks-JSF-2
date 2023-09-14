@@ -1,51 +1,71 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="WEB-INF/template/Layout.xhtml">
 
-<h:head>
-	<meta charset="UTF-8" />
-	<title>Gestão Empresas</title>
-	<h:outputStylesheet library="CSS" name="styles.css" />
-	
-	<f:metadata>
-		<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}"/>
-	</f:metadata>
-</h:head>
+	<ui:define name="titulo">
+	Cadastro de Empresas
+</ui:define>
 
-<h:body>
-	<header>
-		SEJA BEM VINDO AO ALGAWORKS!
-		<!-- <h:graphicImage library="img" name="castor.png" /> -->
-	</header>
+	<ui:define name="conteudo">
+		<f:metadata>
+			<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}" />
+		</f:metadata>
 
-	<h2>Cadastro de Empresas</h2>
+		<h:form>
+			<p:toolbar>
+				<f:facet name="left"> <!-- Usado para posicionar corretamente na esquerda os botoes do toolbar -->
+					<p:inputText placeholder="Digite aqui sua pesquisa..." 
+						size="30"/> <!-- O size define o tamanho da caixinha do inputText e o placeholder apresenta uma mensagem padrao-->
+					<p:commandButton value="Pesquisar" icon="fa fa fa-search" />
 
-	<div id="conteudo">
-		<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}" var="empresa"
-			emptyMessage="Nenhuma informação a seri exibida.">
+					<span class="ui-separator"> <span
+						class="ui-icon pi pi-ellipsis-v" />
+					</span>
+
+					<p:commandButton value="Nova" icon="fa fa-plus" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon pi pi-ellipsis-v" />
+					</span>
+
+					<p:commandButton title="Editar" icon="fa fa-edit" />
+					<p:commandButton title="Excluir" icon="fa fa-trash" />
+
+					<span class="ui-separator"> <span
+						class="ui-icon pi pi-ellipsis-v" />
+					</span>
+
+					<p:commandButton title="Exportar-Excel" icon="fa fa-file-excel-o" />
+				</f:facet>
+			</p:toolbar>
+			
+			<p:spacer height="20px"></p:spacer> <!-- provoca um espaçamento entre os utilitarios (aqui separa o toolbar do dataTable -->
+			
 			<!-- emptyMessage é para quando não existir empresas cadastradas ou encontradas -->
-			<p:column headerText="Razão Social">
-				<h:outputText value="#{empresa.razaoSocial}" />
-			</p:column>
+			<p:dataTable value="#{gestaoEmpresasBean.listaEmpresas}"
+				var="empresa" emptyMessage="Nenhuma informação a seri exibida."
+				paginator="true" eows="10" paginatorPosition="bottom">
+				<p:column headerText="Razão Social" sortBy="#{empresa.razaoSocial}">
+					<h:outputText value="#{empresa.razaoSocial}" />
+				</p:column>
 
-			<p:column headerText="Nome Fantasia">
-				<h:outputText value="#{empresa.nomeFantasia}" />
-			</p:column>
+				<p:column headerText="Nome Fantasia">
+					<h:outputText value="#{empresa.nomeFantasia}" />
+				</p:column>
 
-			<p:column headerText="Tipo Empresa">
-				<h:outputText value="#{empresa.tipo}" />
-			</p:column>
+				<p:column headerText="Tipo Empresa">
+					<h:outputText value="#{empresa.tipo}" />
+				</p:column>
 
-			<p:column headerText="Ramo Atividade">
-				<h:outputText value="#{empresa.ramoAtividade}" />
-			</p:column>
-		</p:dataTable>
-	</div>
+				<p:column headerText="Ramo Atividade">
+					<h:outputText value="#{empresa.ramoAtividade}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
 
-	<footer> Curso online "JSF e PrimeFaces Essencial." </footer>
-
-</h:body>
-
-</html>
+</ui:composition>

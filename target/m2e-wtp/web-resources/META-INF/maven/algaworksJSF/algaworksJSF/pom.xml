@@ -31,11 +31,11 @@
 			<scope>compile</scope>
 		</dependency>
 
-		<!-- Dependência do PrimeFaces versão 7.0 (ano: 2019) -->
+		<!-- Dependência do PrimeFaces versão 8.0  -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
 			<artifactId>primefaces</artifactId>
-			<version>7.0</version>
+			<version>8.0</version>
 		</dependency>
 
 		<!-- Dependência do Servlet API para desenvolvimento web. Escopo
