@@ -13,6 +13,7 @@ import algaworks.erp.model.RamoAtividade;
 import algaworks.erp.model.TipoEmpresa;
 import algaworks.erp.repository.DaoEmpresa;
 import algaworks.erp.repository.DaoRamoAtividade;
+import algaworks.erp.service.CadastroEmpresaService;
 import algaworks.erp.util.FacesMessages;
 
 @Named
@@ -29,12 +30,29 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	
 	@Inject
 	private DaoRamoAtividade daoRamoAtividade;
+	
+	@Inject
+	private CadastroEmpresaService cadastroEmpresaService;
 
 	private List<Empresa> listaEmpresas;
 
 	private String termoPesquisa;
 	
 	private Converter ramoAtividadeConverter;
+	
+	private Empresa empresa;
+	
+	public void prepararNovaEmpresa() {
+		empresa = new Empresa();
+	}
+	
+	public void salvar() {
+		cadastroEmpresaService.salvar(empresa);
+		if (jaHouvePesquisa()) {
+			pesquisar();
+		}
+		messages.info("Empresa cadastrada com sucesso");
+	}
 	
 
 	// Repare que esse metodo pesquisa pelos nomes de RazaoSocial, que foi
@@ -55,6 +73,10 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 		ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividade);
 		return listaRamoAtividade;
 	}
+	
+	private boolean jaHouvePesquisa() {
+		return termoPesquisa !=null && !"".equals(termoPesquisa);
+	}
 
 	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
@@ -72,7 +94,10 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	public Converter getRamoAtividadeConverter() { //get para ser acessado no xhtml no método 'converter'
 		return ramoAtividadeConverter;
 	}
-
+	
+	public Empresa getEmpresa() {
+		return empresa;
+	}
 
 	public TipoEmpresa[] getTipoEmpresa() {
 		return TipoEmpresa.values(); // aqui estamos dizendo que vamos retornar um array de Enum do tipo TipoEmpresa

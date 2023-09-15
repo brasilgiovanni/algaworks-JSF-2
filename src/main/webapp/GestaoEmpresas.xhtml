@@ -23,12 +23,14 @@
 			<p:toolbar>
 				<f:facet name="left">
 					<!-- Usado para posicionar corretamente na esquerda os botoes do toolbar -->
-					<p:inputText placeholder="Digite aqui sua pesquisa..." size="30"
+					<p:inputText id="termoPesquisa"
+						placeholder="Digite aqui sua pesquisa..." size="30"
 						value="#{gestaoEmpresasBean.termoPesquisa}" />
 					<!-- O size define o tamanho da caixinha do inputText e o placeholder apresenta uma mensagem padrao-->
 					<p:commandButton value="Pesquisar" icon="fa fa-search"
 						actionListener="#{gestaoEmpresasBean.pesquisar}"
-						update="empresasDataTable" />
+						update="empresasDataTable" process="@this termoPesquisa" />
+					<!-- @this processa apenas o botão 'pesquisar' e foi adicionado para processa o "termoPesquisa" -->
 					<!-- Comando update="empresasDataTable" para atualizar a dataTable depois de usar o commandButton -->
 
 					<span class="ui-separator"> <span
@@ -36,7 +38,10 @@
 					</span>
 
 					<p:commandButton value="Nova" icon="fa fa-plus"
-						onclick="PF('empresaDialogWidgetVar').show()" />
+						actionListener="#{gestaoEmpresasBean.prepararNovaEmpresa}"
+						oncomplete="PF('empresaDialogWidgetVar').show()"
+						update="empresaDialog" process="@this" />
+					<!-- @this é para apenas processa as configurações desse botão e não toda a pagina -->
 
 					<span class="ui-separator"> <span
 						class="ui-icon pi pi-ellipsis-v" />
@@ -78,17 +83,26 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:dialog header="Nova Empresa" widgetVar="empresaDialogWidgetVar"
-				modal="true" resizable="false" closeOnEscape="true">
-				<h:panelGrid columns="2">
+			<p:dialog id="empresaDialog" header="Nova Empresa"
+				widgetVar="empresaDialogWidgetVar" modal="true" resizable="false"
+				closeOnEscape="true">
+				<h:panelGrid id="empresaPanelGrid" columns="2"
+					rendered="#{gestaoEmpresasBean.empresa ne null}">
+					
+					<p:outputLabel style="display:none;">Comentário 1</p:outputLabel>
+					<!-- rendered é para que a caixa dialog do botao "Nova Empresa" seja renderizado apenas depois que já tenha sido executado a classe empresa (senão, da erro) -->
+					
 					<p:outputLabel value="Razão Social: " for="razaoSocial" />
-					<p:inputText id="razaoSocial" size="60" maxlength="120" />
+					<p:inputText id="razaoSocial" size="60" maxlength="120"
+						value="#{gestaoEmpresasBean.empresa.razaoSocial}" />
 
 					<p:outputLabel value="Nome Fantasia: " for="nomeFantasia" />
-					<p:inputText id="nomeFantasia" size="60" maxlength="80" />
+					<p:inputText id="nomeFantasia" size="60" maxlength="80"
+						value="#{gestaoEmpresasBean.empresa.nomeFantasia}" />
 
 					<p:outputLabel value="Tipo Empresa: " for="tipo" />
-					<p:selectOneMenu id="tipo">
+					<p:selectOneMenu id="tipo"
+						value="#{gestaoEmpresasBean.empresa.tipo}">
 						<f:selectItem itemLabel="Selecione..." />
 						<f:selectItems value="#{gestaoEmpresasBean.tipoEmpresa}"
 							var="tipoEmpresa" itemLabel="#{tipoEmpresa.descricao}"
@@ -97,24 +111,37 @@
 
 					<p:outputLabel value="CNPJ: " for="cnpj" />
 					<p:inputMask id="cnpj" mask="99.999.999/9999-99" size="18"
-						maxlength="18" />
+						maxlength="18" value="#{gestaoEmpresasBean.empresa.cnpj}" />
 
 					<p:outputLabel value="Data da Fundação: " for="dataFundacao" />
-					<p:calendar id="dataFundacao" pattern="dd-MMM-yyyy" size="30" />
+					<p:calendar id="dataFundacao" pattern="dd-MM-yyyy" size="30"
+						value="#{gestaoEmpresasBean.empresa.dataFundacao}" />
 
 					<p:outputLabel value="Ramo Atividade: " for="ramoAtividade" />
-					<p:autoComplete id="ramoAtividade" size="60" maxResults="6"
-						placeholder="Digite %..."
-						completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}" 
+					<p:autoComplete id="ramoAtividade"
+						value="#{gestaoEmpresasBean.empresa.ramoAtividade}" size="60"
+						maxResults="6"
+						placeholder="Digite % para ver uma lista de opções..."
+						completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}"
 						converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
-						var = "ramoAtividade"
-						itemLabel="#{ramoAtividade.descricao}" itemValue="#{ramoAtividade}"/>
+						var="ramoAtividade" itemLabel="#{ramoAtividade.descricao}"
+						itemValue="#{ramoAtividade}" />
+					
+					<p:outputLabel style="display:none;">Comentário 2 </p:outputLabel>
 					<!-- converter="ramoAtividadeConverter" poderia ser usado no caso 01 da classe "ramoAtividadeConverter"-->
-
 					<!-- Deixe essa célula em branco para manter o alinhamento -->
 					<h:outputText value="" />
 
-					<p:commandButton value="Salvar" />
+					<p:commandButton value="Salvar"
+						actionListener="#{gestaoEmpresasBean.salvar}"
+						update="empresasDataTable empresaPanelGrid"
+						oncomplete="PF('empresaDialogWidgetVar').hide()"
+						process="empresaDialog" />
+					
+					<p:outputLabel style="display:none;">Comentário 3</p:outputLabel>
+					<!-- processa apenas a Dialog e não toda a pagina -->
+					<!-- Aqui após clicar em salvar, será feita a atualização do DataTable e PanelGrid desse documento. -->
+					<!-- e o "oncomplete" fará com que seja fechada a janela de criar nova empresa de acordo com o nome dado -->
 				</h:panelGrid>
 
 			</p:dialog>
