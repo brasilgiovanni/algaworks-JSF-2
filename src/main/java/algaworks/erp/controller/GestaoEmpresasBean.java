@@ -1,6 +1,7 @@
 package algaworks.erp.controller;
 
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.convert.Converter;
@@ -46,6 +47,10 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	
 	public void prepararNovaEmpresa() {
 		empresa = new Empresa();
+	}
+	
+	public void prepararEdicao() {
+		ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
 	}
 	
 	public void salvar() {
@@ -103,10 +108,18 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	public Empresa getEmpresa() {
 		return empresa;
 	}
+	
+	public void setEmpresa(Empresa empresa) {
+		this.empresa = empresa;
+	}
 
 	public TipoEmpresa[] getTipoEmpresa() {
 		return TipoEmpresa.values(); // aqui estamos dizendo que vamos retornar um array de Enum do tipo TipoEmpresa
 										// e para buscar os enumerados, basta fazer ".values()"
+	}
+	
+	public boolean isEmpresaSelecionada() { // usar o prefixo "is" torna reconhecível pelo JSF igual o prefixo "GET" e "SET"
+		return empresa != null && empresa.getId() != null;
 	}
 	
 
