@@ -15,9 +15,8 @@
 			<f:viewAction action="#{gestaoEmpresasBean.todasEmpresas}" />
 		</f:metadata>
 
-		<h:form>
+		<h:form id="form">
 			<p:messages id="messages" closable="true">
-				<p:autoUpdate />
 			</p:messages>
 
 			<p:toolbar>
@@ -27,9 +26,10 @@
 						placeholder="Digite aqui sua pesquisa..." size="30"
 						value="#{gestaoEmpresasBean.termoPesquisa}" />
 					<!-- O size define o tamanho da caixinha do inputText e o placeholder apresenta uma mensagem padrao-->
+
 					<p:commandButton value="Pesquisar" icon="fa fa-search"
 						actionListener="#{gestaoEmpresasBean.pesquisar}"
-						update="empresasDataTable" process="@this termoPesquisa" />
+						update="empresasDataTable messages" process="@this termoPesquisa" />
 					<!-- @this processa apenas o botão 'pesquisar' e foi adicionado para processa o "termoPesquisa" -->
 					<!-- Comando update="empresasDataTable" para atualizar a dataTable depois de usar o commandButton -->
 
@@ -86,12 +86,13 @@
 			<p:dialog id="empresaDialog" header="Nova Empresa"
 				widgetVar="empresaDialogWidgetVar" modal="true" resizable="false"
 				closeOnEscape="true">
+				<p:messages id="empresaMessages" />
 				<h:panelGrid id="empresaPanelGrid" columns="2"
 					rendered="#{gestaoEmpresasBean.empresa ne null}">
-					
+
 					<p:outputLabel style="display:none;">Comentário 1</p:outputLabel>
 					<!-- rendered é para que a caixa dialog do botao "Nova Empresa" seja renderizado apenas depois que já tenha sido executado a classe empresa (senão, da erro) -->
-					
+
 					<p:outputLabel value="Razão Social: " for="razaoSocial" />
 					<p:inputText id="razaoSocial" size="60" maxlength="120"
 						value="#{gestaoEmpresasBean.empresa.razaoSocial}" />
@@ -126,7 +127,7 @@
 						converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
 						var="ramoAtividade" itemLabel="#{ramoAtividade.descricao}"
 						itemValue="#{ramoAtividade}" />
-					
+
 					<p:outputLabel style="display:none;">Comentário 2 </p:outputLabel>
 					<!-- converter="ramoAtividadeConverter" poderia ser usado no caso 01 da classe "ramoAtividadeConverter"-->
 					<!-- Deixe essa célula em branco para manter o alinhamento -->
@@ -134,14 +135,17 @@
 
 					<p:commandButton value="Salvar"
 						actionListener="#{gestaoEmpresasBean.salvar}"
-						update="empresasDataTable empresaPanelGrid"
-						oncomplete="PF('empresaDialogWidgetVar').hide()"
-						process="empresaDialog" />
-					
+						update="empresaPanelGrid empresaMessages"
+						oncomplete="if(!args.validationFailed) PF('empresaDialogWidgetVar').hide()"
+						process="empresaDialog">
+						<p:ajax update="form:empresasDataTable form:messages" />
+					</p:commandButton>
+
 					<p:outputLabel style="display:none;">Comentário 3</p:outputLabel>
 					<!-- processa apenas a Dialog e não toda a pagina -->
 					<!-- Aqui após clicar em salvar, será feita a atualização do DataTable e PanelGrid desse documento. -->
 					<!-- e o "oncomplete" fará com que seja fechada a janela de criar nova empresa de acordo com o nome dado -->
+					<!-- if(!args.validationFailed) verifica se Não Falhar, então pode fechar o empresaDialog, caso contrario se falhar, não fechar a janela -->
 				</h:panelGrid>
 
 			</p:dialog>

@@ -8,6 +8,8 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+
+
 import algaworks.erp.model.Empresa;
 import algaworks.erp.model.RamoAtividade;
 import algaworks.erp.model.TipoEmpresa;
@@ -50,8 +52,11 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 		cadastroEmpresaService.salvar(empresa);
 		if (jaHouvePesquisa()) {
 			pesquisar();
+		} else {
+			todasEmpresas();
 		}
-		messages.info("Empresa cadastrada com sucesso");
+		
+		messages.info("Empresa salva com sucesso");
 	}
 	
 
