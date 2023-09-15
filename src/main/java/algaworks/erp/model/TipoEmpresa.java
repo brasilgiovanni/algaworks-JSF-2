@@ -16,4 +16,5 @@ public enum TipoEmpresa {
 	public String getDescricao() {
 		return descricao;
 	}
+	
 }

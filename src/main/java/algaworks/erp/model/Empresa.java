@@ -47,9 +47,6 @@ public class Empresa implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(nullable = false, length = 30)
 	private TipoEmpresa tipo;
-	
-	@Column(precision = 10, scale = 2)
-	private BigDecimal faturamento;
 
 	public Long getId() {
 		return id;
@@ -108,15 +105,6 @@ public class Empresa implements Serializable {
 		this.tipo = tipo;
 	}
 	
-	
-
-	public BigDecimal getFaturamento() {
-		return faturamento;
-	}
-
-	public void setFaturamento(BigDecimal faturamento) {
-		this.faturamento = faturamento;
-	}
 
 	@Override
 	public int hashCode() {
