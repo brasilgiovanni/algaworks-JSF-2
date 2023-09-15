@@ -1,16 +1,18 @@
 package algaworks.erp.controller;
 
 import java.io.Serializable;
-
 import java.util.List;
 
+import javax.faces.convert.Converter;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import algaworks.erp.model.Empresa;
+import algaworks.erp.model.RamoAtividade;
 import algaworks.erp.model.TipoEmpresa;
 import algaworks.erp.repository.DaoEmpresa;
+import algaworks.erp.repository.DaoRamoAtividade;
 import algaworks.erp.util.FacesMessages;
 
 @Named
@@ -24,12 +26,16 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 
 	@Inject
 	private FacesMessages messages;
+	
+	@Inject
+	private DaoRamoAtividade daoRamoAtividade;
 
 	private List<Empresa> listaEmpresas;
 
 	private String termoPesquisa;
 	
-	private TipoEmpresa tipoEmpresaSelecionado;
+	private Converter ramoAtividadeConverter;
+	
 
 	// Repare que esse metodo pesquisa pelos nomes de RazaoSocial, que foi
 	// configurado na classe DaoEmpresa
@@ -43,6 +49,12 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	public void todasEmpresas() {
 		listaEmpresas = daoEmpresa.todas();
 	}
+	
+	public List<RamoAtividade> completarRamoAtividade(String userRamoAtividade) {
+		List<RamoAtividade> listaRamoAtividade = daoRamoAtividade.pesquisar(userRamoAtividade);
+		ramoAtividadeConverter = new RamoAtividadeConverter(listaRamoAtividade);
+		return listaRamoAtividade;
+	}
 
 	public List<Empresa> getListaEmpresas() {
 		return listaEmpresas;
@@ -55,10 +67,17 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 	public void setTermoPesquisa(String termoPesquisa) {
 		this.termoPesquisa = termoPesquisa;
 	}
+	
+
+	public Converter getRamoAtividadeConverter() { //get para ser acessado no xhtml no método 'converter'
+		return ramoAtividadeConverter;
+	}
+
 
 	public TipoEmpresa[] getTipoEmpresa() {
 		return TipoEmpresa.values(); // aqui estamos dizendo que vamos retornar um array de Enum do tipo TipoEmpresa
 										// e para buscar os enumerados, basta fazer ".values()"
 	}
+	
 
 }

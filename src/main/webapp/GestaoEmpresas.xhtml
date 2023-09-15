@@ -103,7 +103,13 @@
 					<p:calendar id="dataFundacao" pattern="dd-MMM-yyyy" size="30" />
 
 					<p:outputLabel value="Ramo Atividade: " for="ramoAtividade" />
-					<p:autoComplete id="ramoAtividade" size="60" maxResults="5" />
+					<p:autoComplete id="ramoAtividade" size="60" maxResults="6"
+						placeholder="Digite %..."
+						completeMethod="#{gestaoEmpresasBean.completarRamoAtividade}" 
+						converter="#{gestaoEmpresasBean.ramoAtividadeConverter}"
+						var = "ramoAtividade"
+						itemLabel="#{ramoAtividade.descricao}" itemValue="#{ramoAtividade}"/>
+					<!-- converter="ramoAtividadeConverter" poderia ser usado no caso 01 da classe "ramoAtividadeConverter"-->
 
 					<!-- Deixe essa célula em branco para manter o alinhamento -->
 					<h:outputText value="" />
