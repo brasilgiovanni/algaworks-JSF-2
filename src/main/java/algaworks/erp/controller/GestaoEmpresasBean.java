@@ -53,15 +53,28 @@ public class GestaoEmpresasBean implements Serializable { // Essa classe precisa
 		ramoAtividadeConverter = new RamoAtividadeConverter(Arrays.asList(empresa.getRamoAtividade()));
 	}
 	
-	public void salvar() {
-		cadastroEmpresaService.salvar(empresa);
+	private void atualizarRegistros() { //atualiza o registro na página xhtml
 		if (jaHouvePesquisa()) {
 			pesquisar();
 		} else {
 			todasEmpresas();
 		}
+	}
+	
+	public void salvar() {
+		cadastroEmpresaService.salvar(empresa);
+		
+		atualizarRegistros();
 		
 		messages.info("Empresa salva com sucesso");
+	}
+	
+	public void excluir() {
+		cadastroEmpresaService.excluir(empresa);
+		empresa = null; // para que o compilador entenda que não esta mais sendo utilizada e pode ser apagada da memoria
+		atualizarRegistros();
+		
+		messages.info("Empresa excluída com sucesso");
 	}
 	
 
