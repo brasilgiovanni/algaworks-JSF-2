@@ -58,10 +58,12 @@
 					</p:commandButton>
 
 					<p:commandButton title="Excluir" icon="fa fa-trash"
-						disable="#{not gestaoEmpresasBean.empresaSelecionada}" 
+						disable="#{not gestaoEmpresasBean.empresaSelecionada}"
 						actionListener="#{gestaoEmpresasBean.excluir}"
-						update="messages empresasDataTable toolbar"
-						process="@this"/>
+						update="messages empresasDataTable toolbar" process="@this">
+						<p:confirm icon="ui-icon-alert" header="Confirmação de Exclusão"
+							message="Certeza da exclusão?" />
+					</p:commandButton>
 
 					<span class="ui-separator"> <span
 						class="ui-icon pi pi-ellipsis-v" />
