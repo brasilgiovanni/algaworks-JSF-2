@@ -64,12 +64,17 @@
 						<p:confirm icon="ui-icon-alert" header="Confirmação de Exclusão"
 							message="Certeza da exclusão?" />
 					</p:commandButton>
-
+					
 					<span class="ui-separator"> <span
 						class="ui-icon pi pi-ellipsis-v" />
 					</span>
 
-					<p:commandButton title="Exportar-Excel" icon="fa fa-file-excel-o" />
+					<p:commandButton title="ExportarExcel" icon="fa fa-file-excel-o"
+						ajax="false">
+						<p:dataExporter type="xls" target="empresasDataTable"
+							fileName="TabelaEmpresas"/>
+					</p:commandButton>
+					
 				</f:facet>
 			</p:toolbar>
 
